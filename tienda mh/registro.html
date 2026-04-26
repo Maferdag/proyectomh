@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <img src="imagen.webp" alt="Es una imagen que representa los datos personales de una persona">
+    <link rel="stylesheet" href="registro.css">
+
+</head>
+
+<body>
+    <div class="contenedor">
+        <!--  php para almacenar los datos que sean entregados en el campo de texto -->
+        <form action="proces.php" method="post" name="form" onsubmit="return validarDatos()">
+
+            <h2>Crear Cuenta</h2>
+            <p>Regístrate para acceder a todos nuestros productos</p>
+            <!-- label es la etiqueta para empezar a diseñar el registro. Es para introducir un campo de texto (en el input)-->
+            <div>
+                <label>Nombre completo</label>
+                <input type="text" name="nombre completo">    
+            </div>
+
+            <div>
+                <label>correo electronico </label>
+                <input type="email" name="correo electronico">
+            </div>
+
+            <div>
+                <label>telefono</label>
+                <input type="tel" name="telefono">
+            </div>
+
+            <div>
+                <label> contraseña </label>
+                <input type="password" name="contraseña">
+            </div>
+
+            <!--  submit es el boton de envíar -->
+            <input type="submit" value="Enviar">
+
+        </form>
+    </div>
+
+    <script src="prueba.js" ></script>
+    <script src="registro.js"></script>
+</body>
+
+</html>
