@@ -1,13 +1,15 @@
-
+// =========================
 // ESTADO GLOBAL
+// =========================
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 let currentPage = 1;
 const pagesFixed = 3;
 const itemsPerPage = 15; 
 
+// =========================
 // UTILIDADES
-
+// =========================
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
@@ -38,9 +40,9 @@ function getFilteredProducts() {
   });
 }
 
-
-// Busqueda de navegador
-
+// =========================
+// BÚSQUEDA
+// =========================
 function setupSearch() {
   const searchInput = document.getElementById("searchInput");
   const searchBtn = document.getElementById("searchBtn");
@@ -94,6 +96,7 @@ function updatePaginationUI() {
   const items = document.querySelectorAll(".pagination.monster-pagina .page-item");
   if (!items.length) return;
 
+  // items[0] = prev, items[1]=1, items[2]=2, items[3]=3, items[4]=next
   items.forEach(i => i.classList.remove("active"));
 
   const activeIndex = currentPage; // 1->items[1], 2->items[2]...
@@ -120,8 +123,19 @@ function renderProductsWithPagination() {
   updatePaginationUI();
 }
 
-// INYECTAR BOTÓN "AGREGAR" EN TUS CARDS
 
+function cerrarDropdown(elemento) {
+  const dropdown = elemento.closest('.dropdown');
+  const boton = dropdown.querySelector('.dropdown-toggle');
+
+  const instancia = bootstrap.Dropdown.getInstance(boton);
+  if (instancia) instancia.hide();
+}
+``
+
+// =========================
+// INYECTAR BOTÓN "AGREGAR" EN TUS CARDS
+// =========================
 function injectAddButtons() {
   document.querySelectorAll(".product-card").forEach(card => {
     if (card.querySelector(".btn-add-cart")) return;
@@ -147,9 +161,9 @@ function injectAddButtons() {
   });
 }
 
-
-// El carrito
-
+// =========================
+// CARRITO
+// =========================
 function addToCart(name, price) {
   let item = cart.find(p => p.name === name);
   if (item) item.qty++;
@@ -219,7 +233,9 @@ function removeItem(index) {
   renderCart();
 }
 
-// El pago
+// =========================
+// PAGO + MODAL (Bootstrap)
+// =========================
 function openPayment() {
   if (cart.length === 0) {
     alert("Carrito vacío");
@@ -240,80 +256,18 @@ function closePayment() {
   modal.hide();
 }
 
-// =========================
-// VALIDACIÓN DE TARJETA (real)
-// =========================
-
-// Algoritmo de Luhn (validación real)
-function isValidCardNumber(number) {
-  let sum = 0;
-  let shouldDouble = false;
-
-  for (let i = number.length - 1; i >= 0; i--) {
-    let digit = parseInt(number[i]);
-
-    if (shouldDouble) {
-      digit *= 2;
-      if (digit > 9) digit -= 9;
-    }
-
-    sum += digit;
-    shouldDouble = !shouldDouble;
-  }
-
-  return sum % 10 === 0;
-}
-
-function isValidExpiry(exp) {
-  if (!/^\d{2}\/\d{2}$/.test(exp)) return false;
-
-  const [month, year] = exp.split("/").map(Number);
-  if (month < 1 || month > 12) return false;
-
-  const now = new Date();
-  const currentYear = now.getFullYear() % 100;
-  const currentMonth = now.getMonth() + 1;
-
-  return year > currentYear || (year === currentYear && month >= currentMonth);
-}
-
-function isValidCVV(cvv) {
-  return /^\d{3,4}$/.test(cvv);
-}
-
 function processPayment() {
-  const number = document.getElementById("card-number").value.replace(/\s+/g, "");
-  const exp = document.getElementById("card-exp").value.trim();
-  const cvv = document.getElementById("card-cvv").value.trim();
   const status = document.getElementById("payment-status");
+  const number = document.getElementById("card-number")?.value?.trim();
 
-  status.textContent = "";
-  status.style.color = "red";
+  if (!status) return;
 
-  // ===== VALIDACIONES =====
-  if (!/^\d{13,19}$/.test(number)) {
-    status.textContent = "❌ Número de tarjeta inválido";
+  if (!number || number.length < 12) {
+    status.textContent = "❌ Tarjeta inválida";
     return;
   }
 
-  if (!isValidCardNumber(number)) {
-    status.textContent = "❌ Tarjeta no válida";
-    return;
-  }
-
-  if (!isValidExpiry(exp)) {
-    status.textContent = "❌ Tarjeta vencida o fecha incorrecta";
-    return;
-  }
-
-  if (!isValidCVV(cvv)) {
-    status.textContent = "❌ CVV inválido";
-    return;
-  }
-
-  // ===== SI TODO ESTÁ BIEN =====
-  status.style.color = "green";
-  status.textContent = "⏳ Procesando pago...";
+  status.textContent = "⏳ Procesando...";
 
   setTimeout(() => {
     status.textContent = "✅ Pago aprobado";
@@ -326,19 +280,18 @@ function processPayment() {
       saveCart();
       renderCart();
 
-      // limpiar inputs
+      status.textContent = "";
       ["card-number", "card-name", "card-exp", "card-cvv"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = "";
       });
-
-      status.textContent = "";
     }, 1000);
-  }, 1500);
+  }, 1200);
 }
 
-
-// La factura
+// =========================
+// FACTURA PDF (jsPDF)
+// =========================
 function generateTicket() {
   if (!window.jspdf || !window.jspdf.jsPDF) {
     alert("jsPDF no está cargado");
@@ -348,11 +301,11 @@ function generateTicket() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
- 
+  // ===== COLORES =====
   const pink = [255, 87, 171];
   const gray = [150, 150, 150];
 
- 
+  // ===== TÍTULO =====
   doc.setTextColor(...pink);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
@@ -362,17 +315,17 @@ function generateTicket() {
   doc.setFont("helvetica", "normal");
   doc.text("Factura de compra", 105, 30, { align: "center" });
 
-
+  // ===== INFO GENERAL =====
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(10);
   doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 42);
   doc.text(`Factura N°: ${Math.floor(Math.random() * 100000)}`, 14, 48);
 
-  
+  // ===== LÍNEA =====
   doc.setDrawColor(...gray);
   doc.line(14, 52, 196, 52);
 
- 
+  // ===== ENCABEZADOS =====
   let y = 62;
 
   doc.setFont("helvetica", "bold");
@@ -382,7 +335,7 @@ function generateTicket() {
 
   doc.line(14, y + 2, 196, y + 2);
 
- // La lista de productos
+  // ===== LISTA DE PRODUCTOS =====
   y += 10;
   doc.setFont("helvetica", "normal");
 
@@ -399,28 +352,32 @@ function generateTicket() {
     y += 8;
   });
 
-  // Linea
+  // ===== LÍNEA =====
   y += 4;
   doc.line(14, y, 196, y);
 
-  // Total
+  // ===== TOTAL =====
   y += 10;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
   doc.text("TOTAL:", 130, y);
   doc.text(`$${total.toFixed(2)}`, 196, y, { align: "right" });
 
-  // Mensaje Final
+  // ===== MENSAJE FINAL =====
   y += 20;
   doc.setFontSize(10);
   doc.setFont("helvetica", "italic");
   doc.setTextColor(...gray);
   doc.text("Gracias por tu compra", 105, y, { align: "center" });
-  doc.text("Monster High Store", 105, y + 6, { align: "center" });
+  doc.text("Monster High Store – Proyecto Académico", 105, y + 6, { align: "center" });
+
+  // ===== GUARDAR =====
   doc.save("factura-monster-shop.pdf");
 }
 
-
+// =========================
+// INIT
+// =========================
 document.addEventListener("DOMContentLoaded", () => {
   injectAddButtons();
   setupSearch();
@@ -429,7 +386,206 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 });
 
+// Asegura que tus onclick del HTML funcionen (global)
 window.openPayment = openPayment;
 window.closePayment = closePayment;
 window.processPayment = processPayment;
 window.addToCart = addToCart;
+// =========================
+// BUSCAR CATEGORÍAS + CARRUSEL (FIX REAL)
+// =========================
+
+const carousel = document.getElementById("carouselPrincipal");
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+
+// ---- mostrar / ocultar carrusel ----
+function ocultarCarousel() {
+  if (carousel) carousel.style.display = "none";
+}
+
+function mostrarCarousel() {
+  if (carousel) carousel.style.display = "block";
+}
+
+// ---- búsqueda real ----
+function filtrarProductos() {
+  const query = (searchInput?.value || "").toLowerCase().trim();
+
+  const cards = document.querySelectorAll(".product-card");
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    const match = text.includes(query);
+
+    card.style.display = match ? "" : "none";
+  });
+
+  // carrusel
+  if (query.length > 0) {
+    ocultarCarousel();
+  } else {
+    mostrarCarousel();
+  }
+
+  currentPage = 1;
+  renderProductsWithPagination();
+}
+
+// ---- eventos búsqueda ----
+function setupSearch() {
+  if (!searchInput || !searchBtn) return;
+
+  searchInput.addEventListener("input", filtrarProductos);
+
+  searchBtn.addEventListener("click", filtrarProductos);
+}
+
+// ---- ir a categorías ----
+function irASeccion(seccion) {
+  ocultarCarousel();
+
+  const el = document.getElementById(seccion);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+// =========================
+// INIT FINAL (IMPORTANTE)
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  injectAddButtons();
+  setupSearch();
+  setupPagination();
+  renderProductsWithPagination();
+  renderCart();
+});
+
+
+//PRUEBA DE ORGANIZACION DE CATEGORIAS
+document.getElementById('searchInput').addEventListener('input', function() {
+  const searchTerm = this.value.toLowerCase();
+  const allCategories = document.querySelectorAll('.category');
+  
+  // Filtra las categorías
+  allCategories.forEach(category => {
+    const categoryName = category.getAttribute('data-category').toLowerCase();
+    
+    // Si la categoría coincide con el término de búsqueda
+    if (categoryName.includes(searchTerm)) {
+      category.style.display = 'block'; // Mostrarla
+    } else {
+      category.style.display = 'none'; // Ocultarla si no coincide
+    }
+  });
+});
+
+// Event listener para cambiar de pestaña y mostrar las categorías activas
+const tabs = document.querySelectorAll('.nav-link');
+tabs.forEach(tab => {
+  tab.addEventListener('click', function() {
+    const activeTab = document.querySelector('.nav-link.active').getAttribute('href');
+    const allCategories = document.querySelectorAll('.category');
+
+    // Ocultar todas las categorías
+    allCategories.forEach(category => {
+      category.style.display = 'none';
+    });
+
+    // Mostrar categorías de la pestaña activa
+    const activeCategories = document.querySelectorAll(activeTab + ' .category');
+    activeCategories.forEach(category => {
+      category.style.display = 'block';
+    });
+  });
+});
+
+// =========================
+// CODIGO FINAL CATEGORIAS + BUSQUEDA + TITULOS
+// =========================
+
+// 👉 Modo normal (sin búsqueda)
+function mostrarModoNormal() {
+  document.querySelectorAll(".categoria").forEach(cat => {
+    cat.style.display = "block";
+  });
+
+  document.querySelectorAll(".product-card").forEach(card => {
+    card.style.display = "";
+  });
+
+  mostrarCarousel();
+}
+
+// 👉 Render principal (usa búsqueda + paginación)
+function renderProductsWithPagination() {
+  const all = getAllProducts();
+  const filtered = getFilteredProducts();
+
+  // Oculta todo
+  all.forEach(card => (card.style.display = "none"));
+
+  // Paginación
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  filtered.slice(start, end).forEach(card => {
+    card.style.display = "";
+  });
+
+  // 🔥 Mostrar/ocultar categorías completas (incluye títulos)
+  document.querySelectorAll(".categoria").forEach(cat => {
+    const visibleProducts = cat.querySelectorAll(
+      ".product-card:not([style*='display: none'])"
+    );
+
+    if (visibleProducts.length > 0) {
+      cat.style.display = "block";
+    } else {
+      cat.style.display = "none";
+    }
+  });
+
+  updatePaginationUI();
+}
+
+// 👉 Búsqueda (única y correcta)
+function setupSearch() {
+  const input = document.getElementById("searchInput");
+  const btn = document.getElementById("searchBtn");
+
+  if (!input || !btn) return;
+
+  function runSearch() {
+    const query = input.value.trim();
+
+    currentPage = 1;
+
+    if (query === "") {
+      mostrarModoNormal();
+    }
+
+    renderProductsWithPagination();
+
+    // ocultar carrusel si hay búsqueda
+    if (query !== "") {
+      ocultarCarousel();
+    } else {
+      mostrarCarousel();
+    }
+  }
+
+  input.addEventListener("input", runSearch);
+  btn.addEventListener("click", runSearch);
+}
+
+// 👉 Navegación a secciones (dropdown)
+function irASeccion(seccion) {
+  mostrarModoNormal();
+
+  const el = document.getElementById(seccion);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+}

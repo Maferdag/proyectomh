@@ -2,7 +2,7 @@
 
 session_start();
 
-$conexion = new mysqli("localhost", "root", "", "TiendaMH");
+$conexion = new mysqli("localhost", "root", "", "tiendamh");
 
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);

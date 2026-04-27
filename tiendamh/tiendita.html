@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link href="style1.css" rel="stylesheet">
+    <link href="style2.css" rel="stylesheet">
     <title> Monster shop </title>
 
     <style>
@@ -24,22 +24,94 @@ h2, h3 {
 
   
 
-<h1>Monster Shop</h1>
+<header class="text-center mb-4">
+  <h1>Monster Shop</h1>
 
-<nav class="navbar bg-body-tertiary mb-4">
-  <div class="container-fluid">
-    <form class="d-flex" onsubmit="return false;">
-      <input id="searchInput" class="form-control me-2" type="search"
-        placeholder="Buscar :3">
-      <button id="searchBtn"
-        class="btn btn-outline-success"
-        type="button">Buscar</button>
-    </form>
-  </div>
-</nav>
+  <nav class="navbar bg-body-tertiary mt-3">
+    <div class="container justify-content-center">
+      <form class="d-flex w-100 w-md-50" onsubmit="return false;">
+        <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar :3">
+        <button id="searchBtn" class="btn btn-outline-success" type="button">
+          Buscar
+        </button>
+      </form>
+    </div>
+  </nav>
+</header>
 
 <br>
+<div class="monster-categorias d-flex flex-wrap justify-content-center gap-4 my-4">
 
+  <!-- Productos populares -->
+  <div class="dropdown">
+    <button class="btn monster-btn dropdown-toggle" data-bs-toggle="dropdown">
+      🖤 Productos populares
+    </button>
+    <ul class="dropdown-menu monster-dropdown">
+      <li>
+        <a class="dropdown-item" href="javascript:void(0)" onclick="irASeccion('principales')">
+          Ver todos
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Personajes secundarios -->
+  <div class="dropdown">
+    <button class="btn monster-btn dropdown-toggle" data-bs-toggle="dropdown">
+      🌙 Personajes secundarios
+    </button>
+    <ul class="dropdown-menu monster-dropdown">
+      <li>
+        <a class="dropdown-item" href="javascript:void(0)" onclick="irASeccion('secundarios')">
+          Ver todos
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Ediciones especiales -->
+<div class="dropdown">
+  <button class="btn monster-btn dropdown-toggle" data-bs-toggle="dropdown">
+    🎀 Ediciones especiales
+  </button>
+
+  <ul class="dropdown-menu monster-dropdown">
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('howliday'); cerrarDropdown(this)">
+        Howliday
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('haunt'); cerrarDropdown(this)">
+        Haunt Couture
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('reeldrama'); cerrarDropdown(this)">
+        Reel Drama
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('deadtired'); cerrarDropdown(this)">
+        Dead Tired
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('otras'); cerrarDropdown(this)">
+        Otras ediciones
+      </a>
+    </li>
+  </ul>
+</div>
+
+</div>
+<br>
 
 <div id="carouselPrincipal" class="carousel slide">
   <div class="carousel-inner">
@@ -66,49 +138,12 @@ h2, h3 {
 
 </div>
 
+
 <br>
 
+<div class="categoria" id="principales-section">
 <h2>Productos populares</h2>
 <br>
-
-<div class="d-flex flex-wrap gap-2">
-
-  <!-- Personajes principales -->
-  <div class="btn-group">
-    <button class="btn btn-primary">Personajes principales</button>
-    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('principales')">Ver todos</a></li>
-    </ul>
-  </div>
-
-  <!-- Personajes secundarios -->
-  <div class="btn-group">
-    <button class="btn btn-info">Personajes secundarios</button>
-    <button class="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('secundarios')">Ver todos</a></li>
-    </ul>
-  </div>
-
-  <!-- Ediciones -->
-  <div class="btn-group">
-    <button class="btn btn-warning">Ediciones especiales</button>
-    <button class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('howliday')">Howliday</a></li>
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('haunt')">Haunt Couture</a></li>
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('reeldrama')">Reel Drama</a></li>
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('deadtired')">Dead Tired</a></li>
-      <li><a class="dropdown-item" href="#" onclick="irASeccion('otras')">Otras ediciones</a></li>
-    </ul>
-  </div>
-
-</div>
-<br>
-
-<h2 id="principales">Personajes principales</h2>
-
 
 <div id="carouselProductos" class="carousel slide mb-5">
     <div class="carousel-inner">
@@ -206,6 +241,7 @@ h2, h3 {
         <span class="carousel-control-next-icon"></span>
     </button>
 
+</div>
 </div>
 
 <br>
@@ -417,8 +453,11 @@ h2, h3 {
   </div>
   </div>
   <br> 
+  <div class="categoria" id="ediciones-section">
+
   <h2 id="ediciones" class="mt-5">Ediciones</h2>
   <br> 
+  <div class="categoria" id="howliday-section"></div>
   <h2 id="howliday" class="mt-4">Howliday</h2>
   <br>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -453,7 +492,9 @@ h2, h3 {
     </div>
   </div>
   </div>
+  </div>
   <br>
+  <div class="categoria" id="haunt-section">
   <h2 id="haunt" class="mt-4">Haunt Couture</h2>
   <br>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -518,7 +559,10 @@ h2, h3 {
     </div>
   </div>
   </div>
+  </div>
   <br>
+  <div class="categoria" id="ediciones-section">
+
   <h2 id="otras" class="mt-4">Otras ediciones</h2>
   <br>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -623,7 +667,9 @@ h2, h3 {
     </div>
   </div>
   </div>
+  </div>
 </div>
+
 
 <nav class="mt-5 d-flex justify-content-center" aria-label="Page navigation example">
   <ul class="pagination monster-pagina">
@@ -771,6 +817,6 @@ h2, h3 {
 </div>
 
 
-<script src="tienda.js"></script>
+<script src="tienda1.js"></script>
 </body>
 </html>
