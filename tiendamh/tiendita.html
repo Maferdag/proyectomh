@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <link rel= "icon" href="https://i.imgur.com/G2fIaOX.gif" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="style2.css" rel="stylesheet">
+    <title> Monster shop </title>
+
+    <style>
+  html {
+  scroll-behavior: smooth;
+}
+
+h2, h3 {
+  scroll-margin-top: 100px;
+}
+    </style>
+</head>
+<body>
+
+  
+
+<header class="text-center mb-4">
+  <h1>Monster Shop</h1>
+
+  <nav class="navbar bg-body-tertiary mt-3">
+    <div class="container justify-content-center">
+      <form class="d-flex w-100 w-md-50" onsubmit="return false;">
+        <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar :3">
+        <button id="searchBtn" class="btn btn-outline-success" type="button">
+          Buscar
+        </button>
+      </form>
+    </div>
+  </nav>
+</header>
+
+<br>
+<div class="monster-categorias d-flex flex-wrap justify-content-center gap-4 my-4">
+
+  <!-- Productos populares -->
+  <div class="dropdown">
+    <button class="btn monster-btn dropdown-toggle" data-bs-toggle="dropdown">
+      🖤 Productos populares
+    </button>
+    <ul class="dropdown-menu monster-dropdown">
+      <li>
+        <a class="dropdown-item" href="javascript:void(0)" onclick="irASeccion('principales')">
+          Ver todos
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Personajes secundarios -->
+  <div class="dropdown">
+    <button class="btn monster-btn dropdown-toggle" data-bs-toggle="dropdown">
+      🌙 Personajes secundarios
+    </button>
+    <ul class="dropdown-menu monster-dropdown">
+      <li>
+        <a class="dropdown-item" href="javascript:void(0)" onclick="irASeccion('secundarios')">
+          Ver todos
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Ediciones especiales -->
+<div class="dropdown">
+  <button class="btn monster-btn dropdown-toggle" data-bs-toggle="dropdown">
+    🎀 Ediciones especiales
+  </button>
+
+  <ul class="dropdown-menu monster-dropdown">
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('howliday'); cerrarDropdown(this)">
+        Howliday
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('haunt'); cerrarDropdown(this)">
+        Haunt Couture
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('reeldrama'); cerrarDropdown(this)">
+        Reel Drama
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('deadtired'); cerrarDropdown(this)">
+        Dead Tired
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="javascript:void(0)"
+         onclick="irASeccion('otras'); cerrarDropdown(this)">
+        Otras ediciones
+      </a>
+    </li>
+  </ul>
+</div>
+
+</div>
+<br>
+
+<div id="carouselPrincipal" class="carousel slide">
+  <div class="carousel-inner">
+    
+    <div class="carousel-item active">
+      <img src="Bienvenida.png" class="d-block w-100" alt="Bienvenida">
+    </div>
+
+    <div class="carousel-item">
+      <img src="descuentos.png" class="d-block w-100" alt="descuentos">
+    </div>
+
+
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselPrincipal" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselPrincipal" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+</div>
+
+
+<br>
+
+<div class="categoria" id="principales-section">
+<h2>Productos populares</h2>
+<br>
+
+<div id="carouselProductos" class="carousel slide mb-5">
+    <div class="carousel-inner">
+
+        <div class="carousel-item active">
+            <div class="d-flex justify-content-center gap-4">
+                <div class="product-card">
+                    <div class="card h-100">
+                        <img src="draculaura.jpg" class="card-img-top" alt="Draculaura">
+                        <div class="card-body">
+                            <h3>Draculaura</h3>
+                            <p class="description">Muñeca de Monster High con cabello negro y detalles rosados, 
+                                vestuario coordinado y accesorios temáticos.</p>
+                            <p class="price">$25.99</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card h-100">
+                        <img src="frankie.jpg" class="card-img-top" alt="Frankie">
+                        <div class="card-body">
+                            <h3>Frankie Stein</h3>
+                            <p class="description">Siempre curiosa y amable, combina moda eléctrica con accesorios únicos que reflejan su energía y su espíritu diferente.</p>
+                            <p class="price">$21.99</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+<div class="carousel-item">
+            <div class="d-flex justify-content-center gap-4">
+                <div class="product-card">
+                    <div class="card h-100">
+                        <img src="clawdeen.jpg" class="card-img-top" alt="Clawdeen">
+                        <div class="card-body">
+                            <h3>Clawdeen Wolf</h3>
+                            <p class="description">Ama la moda atrevida y siempre marca tendencia con su estilo feroz. Una muñeca ideal para fans que buscan personalidad, confianza y mucho glamour monstruoso.</p>
+                            <p class="price">$23.99</p>
+                        </div>
+                    </div>
+                </div>
+
+
+        
+                <div class="product-card">
+                    <div class="card h-100">
+                        <img src="cleo.jpg" class="card-img-top" alt="Cleo">
+                        <div class="card-body">
+                            <h3>Cleo de Nile</h3>
+                            <p class="description">Elegante, segura y con un estilo inspirado en el Antiguo Egipto, siempre sabe destacar con su actitud sofisticada y su amor por el lujo.</p>
+                            <p class="price">$21.99</p>
+                        
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="carousel-item">
+            <div class="d-flex justify-content-center gap-4">
+                <div class="product-card">
+                    <div class="card h-100">
+                        <img src="gigi.png" class="card-img-top" alt="Gigi">
+                        <div class="card-body">
+                            <h3>Gigi Grant</h3>
+                            <p class="description">Combina magia, amistad y un estilo brillante que refleja su espíritu libre y su deseo de encajar en el mundo humano.</p>
+                            <p class="price">$19.99</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card h-100">
+                        <img src="lagoona.jpg" class="card-img-top" alt="Lagoona">
+                        <div class="card-body">
+                            <h3>Lagoona Blue</h3>
+                            <p class="description">Ama el océano y destaca por su estilo fresco con inspiración marina, siempre llevando con orgullo su conexión con el mundo submarino.</p>
+                            <p class="price">$19.99</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselProductos" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+</div>
+</div>
+
+<br>
+
+<h2 id="secundarios">Personajes secundarios</h2>
+<br>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="ghoulia.jpg" class="card-img-top" alt="Ghoulia">
+      <div class="card-body">
+        <h3 class="card-title">Ghoulia Yelps</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Deuce.jpg" class="card-img-top" alt="Deuce">
+      <div class="card-body">
+        <h3 class="card-title">Deuce Gorgon</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="abbey.jpg" class="card-img-top" alt="Abbey">
+      <div class="card-body">
+        <h3 class="card-title">Abbey Bominable</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Operetta.jpg" class="card-img-top" alt="Operetta">
+      <div class="card-body">
+        <h3 class="card-title">Operetta</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Spectra.jpg" class="card-img-top" alt="Spectra">
+      <div class="card-body">
+        <h3 class="card-title">Spectra Vondergeist</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$20.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="rochelle.jpg" class="card-img-top" alt="Rochelle">
+      <div class="card-body">
+        <h3 class="card-title">Rochelle Goyle</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Elissabat.jpg" class="card-img-top" alt="Elissabat">
+      <div class="card-body">
+        <h3 class="card-title">Elissabat</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="twyla.jpg" class="card-img-top" alt="Twyla">
+      <div class="card-body">
+        <h3 class="card-title">Twyla</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="elle.jpg" class="card-img-top" alt="Elle">
+      <div class="card-body">
+        <h3 class="card-title">Elle Eedee</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Luna.jpg" class="card-img-top" alt="Luna">
+      <div class="card-body">
+        <h3 class="card-title">Luna Mothews</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Rebeca.jpg" class="card-img-top" alt="Rebeca">
+      <div class="card-body">
+        <h3 class="card-title">Rebeca Steam</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="Nefera.jpg" class="card-img-top" alt="Nefera">
+      <div class="card-body">
+        <h3 class="card-title">Nefera Denile</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Toralei.jpg" class="card-img-top" alt="Toralei">
+      <div class="card-body">
+        <h3 class="card-title">Toralei Stripe</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Pennywise.jpg" class="card-img-top" alt="Pennywise">
+      <div class="card-body">
+        <h3 class="card-title">Pennywise</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Vaydona.jpg" class="card-img-top" alt="Toralei">
+      <div class="card-body">
+        <h3 class="card-title">Vaydona Spider</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Claw.jpg" class="card-img-top" alt="Clawd">
+      <div class="card-body">
+        <h3 class="card-title">Clawd Wolf</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Coraline.jpg" class="card-img-top" alt="Coraline">
+      <div class="card-body">
+        <h3 class="card-title">Coraline</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="emily.jpg" class="card-img-top" alt="Emily">
+      <div class="card-body">
+        <h3 class="card-title">The Corpse Bride Emily</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="venusfang.jpg" class="card-img-top" alt="Venus Fang">
+      <div class="card-body">
+        <h3 class="card-title">Venus McFlytrap Fang</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="rochellefang.jpg" class="card-img-top" alt="Rochelle Fang">
+      <div class="card-body">
+        <h3 class="card-title">Rochelle Fang</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <br> 
+  <div class="categoria" id="ediciones-section">
+
+  <h2 id="ediciones" class="mt-5">Ediciones</h2>
+  <br> 
+  <div class="categoria" id="howliday-section"></div>
+  <h2 id="howliday" class="mt-4">Howliday</h2>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="draculaurahw.jpg" class="card-img-top" alt="Draculaura HW">
+      <div class="card-body">
+        <h3 class="card-title">Draculaura Howliday Winter</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="cleohw.jpg" class="card-img-top" alt="Cleo HW">
+      <div class="card-body">
+        <h3 class="card-title">Cleo de Nile Howliday Winter</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="Clawdeenhw.jpg" class="card-img-top" alt="Clawdeen HW">
+      <div class="card-body">
+        <h3 class="card-title">Clawdeen Wolf Howliday Winter</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <br>
+  <div class="categoria" id="haunt-section">
+  <h2 id="haunt" class="mt-4">Haunt Couture</h2>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="cleohc.jpg" class="card-img-top" alt="Cleo HC">
+      <div class="card-body">
+        <h3 class="card-title">Cleo De Nile Haunt Couture</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <br>
+  <h2 id="reeldrama" class="mt-4">Reel Drama</h2>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="draculauradn.jpg" class="card-img-top" alt="Draculaura RD">
+      <div class="card-body">
+        <h3 class="card-title">Draculaura Reel Drama</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <br>
+  <h2 id="deadtired" class="mt-4">Dead Tired</h2>
+  <br> 
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="frankiedt.jpg" class="card-img-top" alt="Frankie DT">
+      <div class="card-body">
+        <h3 class="card-title">Frankie Stein Dead Tired</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="spectradt.jpg" class="card-img-top" alt=" Spectra DT">
+      <div class="card-body">
+        <h3 class="card-title">Spectra Vondergeist Dead Tired</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+      <div class="product-card">
+    <div class="card h-100">
+      <img src="lagoonadt.jpg" class="card-img-top" alt="Lagoona DT">
+      <div class="card-body">
+        <h3 class="card-title">Lagoona Dead Tired</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <br>
+  <div class="categoria" id="ediciones-section">
+
+  <h2 id="otras" class="mt-4">Otras ediciones</h2>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="Clawdeenso.jpg" class="card-img-top" alt="Clawdeen SO">
+      <div class="card-body">
+        <h3 class="card-title">Clawdeen Wolf School's Out</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="Clawdeensh.jpg" class="card-img-top" alt="Clawdeen SH">
+      <div class="card-body">
+        <h3 class="card-title">Clawdeen Wolf Skull Shores</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+    <div class="product-card">
+    <div class="card h-100">
+      <img src="ghouliaddg.jpg" class="card-img-top" alt="Ghoulia DDG">
+      <div class="card-body">
+        <h3 class="card-title">Ghoulia Yelps Dot Dead Goregeous</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+   <div class="product-card">
+    <div class="card h-100">
+      <img src="cleododd.jpg" class="card-img-top" alt="Cleo DOTD">
+      <div class="card-body">
+        <h3 class="card-title">Cleo de NileDawn of the Dance</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+   <div class="product-card">
+    <div class="card h-100">
+      <img src="frankies1600.jpg" class="card-img-top" alt="Frankie S1600">
+      <div class="card-body">
+        <h3 class="card-title">Frankie Stein Sweet 1600</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+   <div class="product-card">
+    <div class="card h-100">
+      <img src="frankiegr.jpg" class="card-img-top" alt="Frankie GR">
+      <div class="card-body">
+        <h3 class="card-title">Frankie Stein Ghoul's Rule</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="MeowlodyPurrsephone.jpg" class="card-img-top" alt="Meowlody & Purrsephone">
+      <div class="card-body">
+        <h3 class="card-title">Meowlody & Purrsephone</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Neferaby.jpg" class="card-img-top" alt="Nefera BY">
+      <div class="card-body">
+        <h3 class="card-title">Nefera De Nile</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="twylah.jpg" class="card-img-top" alt="Twyla H">
+      <div class="card-body">
+        <h3 class="card-title">Twyla Boogieman Haunted</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="card h-100">
+      <img src="Venus.jpg" class="card-img-top" alt="Venus">
+      <div class="card-body">
+        <h3 class="card-title">Venus McFlytrap</h3>
+        <p class="description">La apariencia fenomenal de está muñeca Clawdeen Wolf está inspirada en los hombres lobos, complementando su look con accesorios espeluznantemente geniales.</p>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+
+
+<nav class="mt-5 d-flex justify-content-center" aria-label="Page navigation example">
+  <ul class="pagination monster-pagina">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li class="page-item active">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">3</a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<section class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="h4 mb-3">🛍 Carrito</h2>
+
+          <ul id="cart-list" class="list-group mb-3"></ul>
+
+          <p id="total" class="fw-bold mb-3">Total: $0.00</p>
+
+          <button class="btn btn-outline-success w-100" type="button" onclick="openPayment()">
+            Pagar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="payment-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">💳 Pago simulado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" onclick="closePayment()"></button>
+      </div>
+
+      <div class="modal-body">
+        <input id="card-number" class="form-control mb-2" placeholder="Número tarjeta" />
+        <input id="card-name" class="form-control mb-2" placeholder="Titular" />
+        <input id="card-exp" class="form-control mb-2" placeholder="MM/AA" />
+        <input id="card-cvv" class="form-control mb-2" placeholder="CVV" />
+
+        <p id="payment-status" class="mt-2 mb-0"></p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" onclick="closePayment()">
+          Cancelar
+        </button>
+        <button class="btn btn-success" type="button" onclick="processPayment()">
+          Confirmar pago
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne">
+        ¿Cómo puedo comprar en la tienda?
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        Solo debes seleccionar un producto y hacer clic en "Añadir al carrito". Luego completas tus datos para finalizar la compra.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo">
+        ¿Los productos son de buena calidad?
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        Sí, todos nuestros productos pasan controles de calidad para asegurar durabilidad y buen rendimiento.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree">
+        ¿Cuánto demora el envío?
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        El envío tarda entre 2 y 5 días hábiles dependiendo de tu ubicación.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour">
+        ¿Puedo devolver un producto?
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        Sí, puedes solicitar devolución dentro de los primeros 10 días si el producto está en buen estado.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive">
+        ¿Qué métodos de pago aceptan?
+      </button>
+    </h2>
+    <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        Aceptamos tarjetas de crédito, débito y transferencias bancarias.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script src="tienda1.js"></script>
+</body>
+</html>
